@@ -1,0 +1,17 @@
+<div style="float: right;">
+  
+  <% if logged_in? -%>
+  
+  <div id="user-bar-greeting" style="clear: none; float: right;">
+    Logged in as <%= link_to current_user.login, 'http://twitter.com/' + current_user.login %> /
+    <%= link_to 'Switch to a different account', login_path %> / <%= link_to 'Sign out', logout_path %>
+  </div>
+  
+  <%- else -%>
+
+  <div id="user-bar-action" style="clear: none; float: right;">
+    <%= link_to "Log in via twitter",  login_path,  { :title => "Log in" } %>
+  </div>
+  
+  <%- end -%>
+</div>

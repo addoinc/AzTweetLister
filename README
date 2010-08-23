@@ -1,0 +1,60 @@
+== AzTweetLister
+
+Twitter Oauth application -  A simple application that showcases usage of twitter-auth plugin/gem
+
+code hosted at github repo: http://github.com/azri/aztweetlister
+
+* Create a rails app that will run off a mysql db. Setup the dbs and the database.yml file
+<pre>
+$ rails -d mysql tweetauth
+</pre>
+
+* Install the required gems and the twitter-auth plugin.
+<pre>
+$ gem install -i ~/ruby/gems/ oauth
+$ gem install -i ~/ruby/gems/ ezcrypto
+$ ./script/plugin install git://github.com/mbleigh/twitter-auth.git
+</pre>
+
+* The README essentially lists the steps required for setting up twitter-oauth based logins for your rails app.
+* As mentioned in the README, twitter-oauth is syntactically very similar to technoweenie's restful-authentication. It provide a user model and methods like login_required, current_user? etc.
+<pre>
+$ emacs vendor/plugins/twitter-auth/README.markdown # Open README in your favorite and read it
+</pre>
+
+* Follow the steps mentioned in the README.
+* Once the plugin's generator has executed, be sure to run rake routes to see the routes that were added.
+$ ./script/generate twitter_auth
+$ rake db:migrate
+
+$ rake routes
+
+* Notice the login and logout routes. Notice the sessions controller
+* You can checkout the code for these actions at: vendor/plugins/twitter-auth/app/controllers/sessions_controller.rb
+* It is a good habit to read source code, even when you havn't written it! ;-)
+
+* Open twitter_auth.yml config file in your favorite editor
+$ emacs config/twitter_auth.yml
+
+* Login at http://dev.twitter.com/apps/new and register your application
+* Once the application is registered copy the oauth_consumer_key and oauth_consumer_secret to config/twitter_auth.yml
+* Pay attention to the value of oauth_callback. This is the url twitter will redirect after a user has logged in successfully.
+
+* Save the the config file, and fire up your server.
+* Visting the /login url will redirect the browser to the twitter login page. Play around with this login workflow.
+
+* In order for this app to be any visible use, let us display the most recent tweet that will show up on the current user's page.
+* In order to do this we created the listing controller and used the current_user model to get the tweet stream.
+* Refer to: app/controllers/listings_controller.rb,  vendor/plugins/twitter-auth/app/models/twitter_auth/*.rb
+
+* Notice, that at http://apiwiki.twitter.com/Twitter-API-Documentation, the "OAuth Methods" subsection does not list a method to logout.
+* Also notice that oauth/authenticate allows a force_login parameter.
+* Hence, for our quick application we can override vendor/plugins/twitter-auth/app/controllers/sessions_controller.rb in app/controllers and pass this argument.
+* This way a user can switch accounts from our application, but he/she logs only when he/she logs out at the twitter site.
+
+So finally, those are the steps that I've had to follow while creating a simple rails app that used twitter-oauth for user logins! Overall, I havn't faced any problems since:
+ a) I read through the README carefully
+ b) I referred to the code of the plugin so that I know how it works
+ c) In the process, I also went through the twitter api ( http://apiwiki.twitter.com/Twitter-API-Documentation )
+
+Overall, a good recipe for working with every plugin/gem, not just twitter-auth! ;-)

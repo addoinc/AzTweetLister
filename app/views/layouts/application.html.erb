@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>AzTweetLister</title>
+    <%= stylesheet_link_tag 'scaffold', 'ez-proto' %>
+  </head>
+  
+  <body>
+    
+    <!-- Layout 3 -->
+    <div class="ez-wr">
+      
+      <div class="ez-box">
+	<%= render :partial => "shared/user_bar" %>
+      </div>
+      
+      <div class="ez-box header">
+	<h1 style="padding-top: 20px;">
+	  Azri's Tweet Lister<sup> <span style="font-size: 8px;">&#169; 2010 Azri</span> </sup>
+	</h1>
+      </div>
+      
+      <div class="ez-box">
+	<% flash.each do |key, msg| %>
+	<%= content_tag :p, msg, :class => "flash #{key}" %>
+	<% end %>
+      </div>
+      
+      <br /><br />
+      
+      <!-- Module 3A -->
+      <div class="ez-wr">
+	<%= yield %>
+      </div>
+      
+      <div class="ez-box footer">
+	<div style="padding-top: 20px;">
+	</div>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>

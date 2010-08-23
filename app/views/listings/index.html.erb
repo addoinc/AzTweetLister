@@ -1,0 +1,68 @@
+<div class="ez-fl ez-negmx ez-33">
+  
+  <div class="ez-box">
+
+    <%- unless @my_followers.empty? -%>
+    <b>Your are being followed by the following users &raquo;</b>
+    <ul class='followers'>
+      <% for follower in @my_followers %>  
+      <li>
+	<%= link_to follower['name'], 'http://twitter.com/' + follower['screen_name'], :html => { :target => "_blank" } %>
+      </li>
+      <% end %>  
+    </ul>
+    <%- end -%>
+
+    <%- unless current_user -%>
+    Azri Tweet List is a quick rails app built to showcase how the twitter-auth plugin/gem works! <br />
+    Click on the login link to login now!
+    <%- else -%>
+    <%- if @my_followers.empty? -%>
+    It looks like either you have not got any follower or the Tiwtter API isn't responding!
+    <%- end -%>
+    <%- end -%>
+   
+  </div>
+  
+</div>
+
+<div class="ez-fl ez-negmr ez-33">
+  
+  <div class="ez-box">
+
+    <%- unless @people_I_follow.empty? -%>
+    <b>Your are following by the following users &raquo;</b>
+    <ul class='following'>
+      <% for person_I_follow in @people_I_follow %>  
+      <li>
+	<%=
+	   link_to(
+	     person_I_follow['name'],
+	     'http://twitter.com/' + person_I_follow['screen_name'],
+	     :html => { :target => "_blank" }
+	   )
+	%>
+      </li>  
+      <% end %>  
+    </ul>
+    <%- end -%>
+    
+    <%- unless current_user -%>
+    &nbsp;
+    <%- else -%>
+    <%- if @my_followers.empty? -%>
+    It looks like either you are not following anyone or the Tiwtter API isn't responding!
+    <%- end -%>
+    <%- end -%>
+    
+  </div>
+  
+</div>
+
+
+<fieldset>
+  <div class="ez-box">
+    
+  </div>
+</fieldset>
+
